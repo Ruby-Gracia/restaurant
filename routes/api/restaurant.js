@@ -6,7 +6,7 @@ const Restaurant = require("../../models/restaurant");
 
 const router = new express.Router();
 
-// Create a cinema
+// Create a restaurant
 router.post("/addrestaurant", auth.enhance, async (req, res) => {
   const restaurant = new Restaurant(req.body);
   try {

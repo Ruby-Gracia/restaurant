@@ -1,7 +1,7 @@
 const express = require("express");
 const auth = require("../../middlewares/auth");
 const upload = require("../../utils/multer");
-const Movie = require("../../models/movie");
+const Movie = require("../../models/menu");
 
 const router = new express.Router();
 

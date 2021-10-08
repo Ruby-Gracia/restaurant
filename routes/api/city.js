@@ -1,8 +1,8 @@
 const express = require("express");
 const auth = require("../../middlewares/auth");
 const City = require("../../models/city");
-const Movie = require("../../models/movie");
-const Cinema = require("../../models/restaurant");
+const Movie = require("../../models/menu");
+const Restaurant = require("../../models/restaurant");
 
 const router = new express.Router();
 
@@ -40,17 +40,19 @@ router.get("/showmovies/:id", async (req, res) => {
   }
 });
 
-// Get city by id and show cinemas
-router.get("/showcinemas/:id", async (req, res) => {
+// Get city by id and show restaurants
+router.get("/showrestaurants/:id", async (req, res) => {
   const _id = req.params.id;
   try {
     const city = await City.findById({ _id });
-    const cinemas = await Cinema.find({ cinemaId: _id });
+    const restaurants = await Restaurant.find({ restaurantId: _id });
     if (!city) return res.sendStatus(404);
-    return res.send(cinemas);
+    return res.send(restaurants);
   } catch (e) {
     return res.status(400).send(e);
   }
 });
+
+
 
 module.exports = router;
