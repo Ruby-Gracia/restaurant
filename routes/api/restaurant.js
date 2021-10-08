@@ -79,6 +79,16 @@ router.get("/showmenu/:id", async (req, res) => {
   }
 });
 
+//search restaurant
+router.get('/restaurants/search', async (req, res) => {
+  const { resName } = req.query.name;
+ 
+  const restaurants = await Restaurant.find({$text: {$search: resName}})
+ 
+  res.render('restaurants', { restaurants });
+ 
+ })
+
 // Update restaurant by id
 router.patch("/updaterestaurant/:id", auth.enhance, async (req, res) => {
   const _id = req.params.id;
