@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
-const movieSchema = new Schema({
+const menuSchema = new Schema({
+  restaurantId: {
+    type: mongoose.Schema.Types.Mixed,
+    ref: "Restaurant",
+  },
   title: {
     type: String,
     required: true,
@@ -11,50 +15,18 @@ const movieSchema = new Schema({
   image: {
     type: String,
   },
-  language: {
-    type: String,
-    required: true,
-    trim: true,
-    lowercase: true,
-  },
-  genre: {
-    type: String,
-    required: true,
-    trim: true,
-    lowercase: true,
-  },
-  director: {
-    type: String,
-    required: true,
-    trim: true,
-    lowercase: true,
-  },
-  cast: {
-    type: String,
-    required: true,
-    trim: true,
-    lowercase: true,
-  },
   description: {
     type: String,
     required: true,
     trim: true,
     lowercase: true,
   },
-  duration: {
+  price: {
     type: String,
-    required: true,
-  },
-  releaseDate: {
-    type: Date,
-    required: true,
-  },
-  cityId: {
-    type: mongoose.Schema.Types.Mixed,
-    ref: "City",
-  },
+    required: true
+  }
 });
 
-const Movie = mongoose.model("Movie", movieSchema);
+const Menu = mongoose.model("Menu", menuSchema);
 
-module.exports = Movie;
+module.exports = Menu;

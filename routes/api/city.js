@@ -27,32 +27,17 @@ router.get("/getcities", async (req, res) => {
   }
 });
 
-// Get city by id and show movies
-router.get("/showmovies/:id", async (req, res) => {
-  const _id = req.params.id;
-  try {
-    const city = await City.findById({ _id });
-    const movies = await Movie.find({ cityId: _id });
-    if (!city) return res.sendStatus(404);
-    return res.send(movies);
-  } catch (e) {
-    return res.status(400).send(e);
-  }
-});
-
 // Get city by id and show restaurants
 router.get("/showrestaurants/:id", async (req, res) => {
   const _id = req.params.id;
   try {
     const city = await City.findById({ _id });
-    const restaurants = await Restaurant.find({ restaurantId: _id });
+    const restaurants = await Restaurant.find({ cityId: _id });
     if (!city) return res.sendStatus(404);
     return res.send(restaurants);
   } catch (e) {
     return res.status(400).send(e);
   }
 });
-
-
 
 module.exports = router;

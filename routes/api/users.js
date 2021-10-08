@@ -2,11 +2,8 @@ const router = require("express").Router();
 const User = require("../../models/user");
 const auth = require("../../middlewares/auth");
 
-/**
- * @route   POST /users
- * @desc    Register new user
- * @access  Public
- */
+// Register new user
+ 
 router.post("/register", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -23,11 +20,9 @@ router.post("/register", async (req, res) => {
   }
 });
 
-/**
- * @route   GET /users
- * @desc    Get all users
- * @access  Private
- */
+
+//   Get all users
+
 router.get("/getusers", auth.enhance, async (req, res) => {
   try {
     const users = await User.find({});
@@ -37,11 +32,8 @@ router.get("/getusers", auth.enhance, async (req, res) => {
   }
 });
 
-/**
- * @route   GET /users/me
- * @desc    Get logged in user details
- * @access  Private
- */
+//  Get logged in user details
+ 
 router.get("/me", auth.enhance, async (req, res) => {
   try {
     res.send(req.user);
@@ -50,11 +42,8 @@ router.get("/me", auth.enhance, async (req, res) => {
   }
 });
 
-/**
- * @route   GET /users/:id
- * @desc    Get user by id
- * @access  Private
- */
+//  Get user by id
+
 router.get("/:id", auth.enhance, async (req, res) => {
   try {
     const { id } = req.params;
@@ -65,11 +54,8 @@ router.get("/:id", auth.enhance, async (req, res) => {
   }
 });
 
-/**
- * @route   PATCH /users/me
- * @desc    Update logged in user
- * @access  Private
- */
+//    Update logged in user
+
 router.patch("/me", auth.simple, async (req, res) => {
   const validationErrors = [];
   const updates = Object.keys(req.body);
@@ -98,11 +84,8 @@ router.patch("/me", auth.simple, async (req, res) => {
   }
 });
 
-/**
- * @route   PATCH /users/:id
- * @desc    Update user by id
- * @access  Private
- */
+// Update user by id
+
 router.patch("/:id", auth.enhance, async (req, res) => {
   const validationErrors = [];
   const updates = Object.keys(req.body);
@@ -133,11 +116,8 @@ router.patch("/:id", auth.enhance, async (req, res) => {
   }
 });
 
-/**
- * @route   DELETE /users/me
- * @desc    Delete logged in user
- * @access  Private
- */
+//   Delete logged in user
+
 router.delete("/me", auth.simple, async (req, res) => {
   try {
     await req.user.remove();
@@ -147,11 +127,8 @@ router.delete("/me", auth.simple, async (req, res) => {
   }
 });
 
-/**
- * @route   DELETE /users/:id
- * @desc    Delete user by id
- * @access  Private
- */
+//Delete user by id
+ 
 router.delete("/:id", auth.enhance, async (req, res) => {
   const _id = req.params.id;
   try {

@@ -1,8 +1,8 @@
 const express = require("express");
 const auth = require("../../middlewares/auth");
 const upload = require("../../utils/multer");
-const Cinema = require("../../models/restaurant");
 const Restaurant = require("../../models/restaurant");
+const Menu = require("../../models/menu");
 
 const router = new express.Router();
 
@@ -60,6 +60,20 @@ router.get("/getrestaurant/:id", async (req, res) => {
     const restaurant = await Restaurant.findById(_id);
     if (!restaurant) return res.sendStatus(404);
     return res.send(restaurant);
+  } catch (e) {
+    return res.status(400).send(e);
+  }
+});
+
+
+// Get restaurant by id and show menu
+router.get("/showmenu/:id", async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const restaurant = await Restaurant.findById({ _id });
+    const menu = await Menu.find({ restaurantId: _id });
+    if (!restaurant) return res.sendStatus(404);
+    return res.send(menu);
   } catch (e) {
     return res.status(400).send(e);
   }
